@@ -1,0 +1,282 @@
+<div>
+
+  <div class="caja" style="margin-top:10px;">
+    <h1><b>RUTAS PARA VEHÍCULOS ELÉCTRICOS</b></h1>
+    <div ><!--Ayuda e informacion del widget-->
+      <button onclick="ocultar('informaciona');" style="height: 50px; width: 50px;position: sticky; top: 2px; padding: 0px;"><img src="https://www.flaticon.es/premium-icon/icons/svg/1709/1709994.svg" style="height: 46px; width: 46px; position: sticky;padding: 0px;margin:0px" alt="Ayuda"></button>
+        <div id ="informaciona" style="display: none;" >
+          <ol style="list-style-type:none;">
+            
+              <p style="padding: 0px;margin:0px"> Esta herramienta permite generar rutas optimizadas en función de multiples valores tanto de porcentaje de bateria como de modelo de coche, lo que permitirá optimizar el viaje para vehículos eléctricos en función de su consumo.</p>
+              <br>
+              <li> 1.Selecciona tu modelo de coche y el porcentaje de batería disponible antes de empezar tu ruta.</li>
+              <li> 2. Marca un punto en el mapa o busca la ubicación de inicio y final de tu ruta. </li>
+              <li> 3. Calcula tu ruta, si no te falta batería podrás realizarla. </li>
+              <li> 4. Si es necesario cargar para completar la ruta, elige en qué cargadores parar de los que se encuentran en tu recorrido, pudiendo selecionar en funcion del modelo o del tipo de cargador, ademas de indicar cuanto quieres desviarte.</li>
+              <li> 5. Por ultimo realiza tu ruta y descubre cuánto CO2 ahorras al planeta.</li>
+          </ol>
+        </div>
+        
+    </div>
+  
+  </div>
+    <div class="caja">
+      <button onclick="ocultar('informacion1');">Selecciona la marca y modelo de tu coche y anota el porcentaje de batería disponible a la salida:</button>
+      <div  id="informacion1" style="display: none;"> <!--Aqui viene el primero div, yo haria bptpn 1 datos del vehiculo-->
+        <label for="selectorMarca">Marca:</label>
+        <select name="selectorMarca" id="selectorMarca">
+          <option value="Ninguno">Seleccione una marca:</option>
+          <option value="Audi">Audi</option>
+          <option value="BMW">BMW</option>
+          <option value="Citroën">Citroën</option>
+          <option value="DS">DS</option>
+          <option value="Fiat">Fiat</option>
+          <option value="Ford">Ford</option>
+          <option value="Honda">Honda</option>
+          <option value="Hyundai">Hyundai</option>
+          <option value="Invicta">Invicta</option>
+          <option value="Jaguar">Jaguar</option>
+          <option value="KIA">KIA</option>
+          <option value="Lexus">Lexus</option>
+          <option value="Mazda">Mazda</option>
+          <option value="Mercedes">Mercedes</option>
+          <option value="Mini">Mini</option>
+          <option value="Nissan">Nissan</option>
+          <option value="Opel">Opel</option>
+          <option value="Peugeot">Peugeot</option>
+          <option value="Porsche">Porsche</option>
+          <option value="Renault">Renault</option>
+          <option value="Seat">Seat</option>
+          <option value="Skoda">Skoda</option>
+          <option value="Smart">Smart</option>
+          <option value="Tesla">Tesla</option>
+          <option value="Toyota">Toyota</option>
+          <option value="Volkswagen">Volkswagen</option>
+          <option value="Volvo">Volvo</option>
+        </select>
+        
+        <label for="selectorModelo">Modelo:</label>
+        <select name="selectorModelo" id="selectorModelo"></select>
+        
+        <p id="errorCoche"></p>
+        <p id="errorBateria"></p>
+        
+        <div id="datosBateria" style="display: none;">
+          <label for="bateria">Batería del coche (kWh).</label>
+          <input id="bateria" type="text" data-dojo-attach-point="bateria" value="0">
+        </div>
+        
+        <label for="porcentaje">Intoduce el porcentaje de batería dispobible a la salida (%).</label>
+        <input id="porcentaje" type="text" value="90">
+        <p id="errorPorcentaje"></p>
+      </div>
+    </div>
+  
+  <div class="caja">
+    <button onclick="ocultar('informacion2');">Marca un punto el mapa con el botón o escribe una dirección:</button>
+    <div  id="informacion2" style="display: none;"> <!--Aqui viene el segundo div-->
+
+      <div>
+      
+        <p>Origen:</p>
+        <button id="seleccionInicio" class="buttonmap" style="width: 35px;height: 35px; padding: 0px; "><img src="https://image.flaticon.com/icons/png/512/106/106165.png" height="33px" width="33px" alt=""></button>
+        <div id="buscadorInicio"></div>
+      </div>
+      <div>
+        <p>Destino:</p>
+        <button id="seleccionFinal" class="buttonmap" style="width: 35px;height: 35px; padding: 0px;"><img src="https://image.flaticon.com/icons/png/512/106/106165.png" height="33px" width="33px" alt=""></button>
+        <div id="buscadorFinal"></div>
+      </div>
+      
+      <p id="errorUbicacion"></p>
+
+    </div>
+  </div>
+  
+
+  <div class="caja">
+
+    <button id="calcularRuta">Calcular ruta.</button>
+    <div id="datosViaje" style="display: none;">
+
+      <p>Datos de tu viaje:</p>
+      <p id="consumoTotal"></p>
+      <p id="trayectoTotal"></p>
+      <p id=""></p>
+  
+    </div>
+  </div>
+
+  
+
+  <div id="datosSegundoCaso" style="display: none;" class="caja">
+    <div>
+      <button onclick="ocultar('informacionx');" >
+        Será necesario cargar para completar la ruta.
+      </button>
+    </div>
+    
+    <div id="informacionx" style="display: none;">
+      <label for="distancia">¿Cúantos kilómetros estás dispuesto a desviarte de la ruta original?</label>
+      <input id="distancia" type="text" data-dojo-attach-point="distancia" value="5">
+      
+      <p>Filtra los puntos de recarga según tus necesidades:</p>
+      
+      <div>
+        <p>Tipo de conector:</p>
+        <ul style="list-style-type:none;">
+          <li>
+            <label class="container" for="tipoConectorTodos">..     Seleccionar todos
+              <input type="checkbox" id="tipoConectorTodos" value="0">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+          <li>
+            <label class="container" for="tipoConector1">..     Schuko 
+              <input type="checkbox" id="tipoConector1" value="1">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+          <li>
+            <label class="container" for="tipoConector2">..     Tipo 1 (SAE J1772) 
+              <input type="checkbox" id="tipoConector2" value="2">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+          <li>
+            <label class="container" for="tipoConector3">..     Tipo 2-Mennekes (IEC 62196-2)
+              <input type="checkbox" id="tipoConector3" value="3">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+          <li>
+            <label class="container" for="tipoConector4">..     CCS2 Combo
+              <input type="checkbox" id="tipoConector4" value="4">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+          <li>
+            <label class="container" for="tipoConector5">..     CHAdeMO
+              <input type="checkbox" id="tipoConector5" value="5">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+          <li>
+            <label class="container" for="tipoConector6">..     CEE 3P+N+E
+              <input type="checkbox" id="tipoConector6" value="6">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+          <li>
+            <label class="container" for="tipoConector7">..     CEE 3P+E
+              <input type="checkbox" id="tipoConector7" value="7">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+          <li>
+            <label class="container" for="tipoConector8">..     CEE 2P+E
+              <input type="checkbox" id="tipoConector8" value="8">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+        </ul>
+        
+      </div>
+      
+      <div>
+        <p>Operador:</p>
+        <ul style="list-style-type:none;">
+          <li>
+            <label class="container" for="tipoOperadorTodos">..     Seleccionar todos
+              <input type="checkbox" id="tipoOperadorTodos" value="Todos">
+              <span class="checkmark"></span>
+            </label>
+          </li> 
+        
+          <li>
+            <label class="container" for="tipoOperador1">..     B:SM Serveis Municipals
+              <input type="checkbox" id="tipoOperador1" value="B:SM Serveis Municipals">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+
+          <li>
+            <label class="container" for="tipoOperador2">..     Institut Català d'Energia 
+              <input type="checkbox" id="tipoOperador2" value="Institut Català d'Energia">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+          
+          <li>
+            <label class="container" for="tipoOperador3">..     Area Metropolitana de Barcelona
+              <input type="checkbox" id="tipoOperador3" value="Area Metropolitana de Barcelona">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+
+          <li>
+            <label class="container" for="tipoOperador4">..     GAICU (Aj. de Barcelona)
+              <input type="checkbox" id="tipoOperador4" value="GAICU (Ajuntament de Barcelona)">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+
+          <li>
+            <label class="container" for="tipoOperador5">..     TESLA SPAIN
+              <input type="checkbox" id="tipoOperador5" value="TESLA SPAIN">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+
+          <li>
+            <label class="container" for="tipoOperador6">..     Endesa
+              <input type="checkbox" id="tipoOperador6" value="Endesa">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+
+          <li>
+            <label class="container" for="tipoOperador7">..     IBIL<input type="checkbox" id="tipoOperador7" value="IBIL">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+          
+          <li>
+            <label class="container" for="tipoOperador8">..     BIMSA
+              <input type="checkbox" id="tipoOperador8" value="BIMSA">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+        
+      </div>
+      
+      <button id="buscarPuntosRecarga">Busca puntos de recarga cercanos a tu ruta.</button>
+      <p id="errorPuntosDisponibles"></p>
+ 
+      <p id="esperarProceso" style="display: none;">Se están procesando las diferentes alternativas para los puntos de recarga disponibles. Espera a que termine el proceso y luego selecciona un punto de recarga.</p>
+    </div>
+    
+  </div>
+
+  
+
+  <div id="datosTercerCaso" style="display: none;" class="caja">
+
+    <p id="puntosDisponibles">Se muestran en el mapa los puntos de recarga dentro del alcance de tu batería.</p>
+    <button id="seleccionarPunto">Selecciona un punto de recarga.</button>
+    <p id="errorPunto"></p>
+    <button id="recalcularRuta">Recalcular ruta.</button>
+
+    <div id="datosViajeCasoDos" style="display: none;">
+
+      <p>Datos de tu viaje:</p>
+      <p id="consumoTotalCasoDos"></p>
+      <p id="trayectoTotalCasoDos"></p>
+      <p id="recargaNecesaria"></p>
+  
+    </div>
+
+  </div>
+
+
+</div>
